@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to right, #3494e6, #ec6ead);
+    }
+
+    #calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      background: linear-gradient(to right, #556270, #4ecdc4);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      background-color: #6a0572;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #60055e;
+    }
+
+    input {
+      grid-column: span 4;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      text-align: right;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    .operator {
+      background-color: #007bff;
+    }
+
+    .equal {
+      background-color: #28a745;
+    }
+  </style>
+  <title>Enhanced Calculator</title>
+</head>
+<body>
+  <div id="calculator">
+    <input type="text" id="display" disabled>
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="appendSymbol('%')">%</button>
+    <button onclick="deleteLast()">DEL</button>
+    <button onclick="appendSymbol('/')">/</button>
+    <button onclick="appendNumber(7)">7</button>
+    <button onclick="appendNumber(8)">8</button>
+    <button onclick="appendNumber(9)">9</button>
+    <button class="operator" onclick="appendSymbol('*')">*</button>
+    <button onclick="appendNumber(4)">4</button>
+    <button onclick="appendNumber(5)">5</button>
+    <button onclick="appendNumber(6)">6</button>
+    <button class="operator" onclick="appendSymbol('-')">-</button>
+    <button onclick="appendNumber(1)">1</button>
+    <button onclick="appendNumber(2)">2</button>
+    <button onclick="appendNumber(3)">3</button>
+    <button class="operator" onclick="appendSymbol('+')">+</button>
+    <button onclick="appendNumber(0)">0</button>
+    <button onclick="appendSymbol('.')">.</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+
+    function appendNumber(number) {
+      currentInput += number;
+      updateDisplay();
+    }
+
+    function appendSymbol(symbol) {
+      currentInput += symbol;
+      updateDisplay();
+    }
+
+    function deleteLast() {
+      currentInput = currentInput.slice(0, -1);
+      updateDisplay();
+    }
+
+    function clearDisplay() {
+      currentInput = '';
+      updateDisplay();
+    }
+
+    function calculate() {
+      try {
+        currentInput = eval(currentInput).toString();
+      } catch (error) {
+        currentInput = 'Error';
+      }
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      display.value = currentInput;
+    }
+  </script>
+</body>
+</html>
